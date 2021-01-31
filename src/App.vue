@@ -1,39 +1,88 @@
 <template>
     <div id="app">
         <div class="container">
-            <button @click="firstModal = !firstModal" class="btn btn--basic btn--primary" type="button">open modal</button>
-            <BasicModal @modalClose="modalClose" v-if="firstModal" title="Title modal">
+            <button
+                @click="modalSimple = !modalSimple"
+                class="btn btn--basic btn--primary"
+                type="button"
+            >
+                open simple modal
+            </button>
+
+            <button
+                @click="modalForm.isShow = !modalForm.isShow"
+                class="btn btn--basic btn--primary"
+                type="button"
+            >
+                open modal with form
+            </button>
+
+            <button
+                @click="modalValidate.isShow = !modalValidate.isShow"
+                class="btn btn--basic btn--primary"
+                type="button"
+            >
+                open modal with form + validate
+            </button>
+            <BasicModal @modalClose="modalClose('modalSimple')" v-show="modalSimple" title="Title modal">
                 <template v-slot:body>
-                    <p>modal body</p>
-                    <button class="btn btn--basic">btn</button>
+                    <p>simple modal</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, quo.</p>
                 </template>
             </BasicModal>
+
+            <BasicModal @modalClose="modalClose('modalForm', 'isShow')" v-show="modalForm.isShow" title="Modal with form">
+                <div class="form" slot="body">
+                    <form @submit.prevent>
+                        <div class="form__block">
+                            <label class="form__label" for="name">Your name</label>
+                            <input v-model="modalForm.name" class="form__input" id="name" type="text" placeholder="Enter your name">
+                        </div>
+                        <div class="form__block">
+                            <label class="form__label" for="email">Your email</label>
+                            <input v-model="modalForm.email" class="form__input" id="email" type="email" placeholder="Enter your email">
+                        </div>
+                        <button class="btn btn--basic btn--success">Send form</button>
+                    </form>
+                </div>
+            </BasicModal>
+
+            <ModalValidate v-show="modalValidate.isShow" @close="modalClose('modalValidate', 'isShow')"></ModalValidate>
         </div>
     </div>
 </template>
 
 <script>
 
-import BasicModal from "@/components/BasicModal";
+import BasicModal from "@/components/UI/BasicModal";
+import ModalValidate from "@/components/ModalValidate";
 
 export default {
     name: 'App',
     components: {
-        BasicModal
+        BasicModal,
+        ModalValidate
     },
     data() {
         return {
-            firstModal: false
+            modalSimple: false,
+            modalForm: {
+                isShow: false,
+                name: '',
+                email: ''
+            },
+            modalValidate: {
+                isShow: false
+            }
         }
     },
     methods: {
-        modalClose() {
-            this.firstModal = false;
-        }
+        modalClose(...args) {
+            if (args.length === 1)
+                this[args[0]] = false;
+            else
+                this[args[0]][args[1]] = false;
+        },
     }
 }
 </script>
-
-<style>
-
-</style>

@@ -1,5 +1,6 @@
 *, ::after, ::before {
     box-sizing: border-box;
+    outline: 0;
 }
 
 body {
@@ -11,4 +12,12 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+}
+
+input[type=text],
+input[type=email],
+input[type=password]{
+    padding: 14px 20px;
+    border: 1px solid $color-border;
+    border-radius: 3px;
 }

@@ -1,17 +1,19 @@
 <template>
-    <div class="modal">
-        <div class="modal__wrapper" @click="$emit('modalClose')">
-            <div class="modal__content" @click.stop>
-                <div class="modal__header">
-                    <p class="modal__title">{{ title }}</p>
-                    <button @click="$emit('modalClose')" class="modal__close" type="button">&times;</button>
-                </div>
-                <div class="modal__body">
-                    <slot name="body">default body 12</slot>
+    <transition name="modal">
+        <div class="modal">
+            <div class="modal__wrapper" @click="$emit('modalClose')">
+                <div class="modal__content" @click.stop>
+                    <div class="modal__header">
+                        <p class="modal__title">{{ title || 'Modal title' }}</p>
+                        <button @click="$emit('modalClose')" class="modal__close" type="button">&times;</button>
+                    </div>
+                    <div class="modal__body">
+                        <slot name="body">default body 12</slot>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </transition>
 </template>
 
 <script>
@@ -98,5 +100,25 @@ export default {
             color: #000;
         }
     }
+}
+
+.modal-enter-active,
+.modal-leave-active {
+    transition: all .3s;
+}
+
+.modal-enter-active .modal__content,
+.modal-leave-active .modal__content {
+    transition: all .3s;
+    transform: scale(1);
+}
+
+
+.modal-enter, .modal-leave-to {
+    opacity: 0;
+}
+
+.modal-enter .modal__content, .modal-leave-to .modal__content {
+    transform: scale(.5);
 }
 </style>

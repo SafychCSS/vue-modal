@@ -41,4 +41,13 @@
             background-color: darken($color-primary, 5%);
         }
     }
+
+    &--success {
+        line-height: 1;
+        background-color: $color-success;
+
+        &:hover {
+            background-color: darken($color-success, 5%);
+        }
+    }
 }
