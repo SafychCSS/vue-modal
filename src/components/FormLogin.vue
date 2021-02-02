@@ -6,11 +6,11 @@
                     <label class="form__label" for="email">Your email</label>
                     <div class="error" v-if="!$v.user.email.required">Field is required</div>
                     <div class="error" v-if="!$v.user.email.email">Email is incorrect</div>
-                    <input v-model="$v.user.email.$model" class="form__input" id="email" type="text" placeholder="Enter your email">
+                    <input v-model="$v.user.email.$model" class="form__input" id="email" type="email" placeholder="Enter your email">
                 </div>
                 <div class="form__block">
                     <label class="form__label" for="password">Your password</label>
-                    <input v-model="user.password" class="form__input" id="password" type="email" placeholder="Enter your password">
+                    <input v-model="user.password" class="form__input" id="password" type="password" placeholder="Enter your password">
                 </div>
                 <button class="btn btn--basic btn--success">Send form</button>
             </form>

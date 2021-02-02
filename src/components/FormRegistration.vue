@@ -15,7 +15,7 @@
                         v-model="$v.user.email.$model"
                         class="form__input"
                         id="email"
-                        type="text"
+                        type="email"
                         placeholder="Enter your email">
                 </div>
 
