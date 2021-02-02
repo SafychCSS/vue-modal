@@ -24,6 +24,13 @@
             >
                 open modal with form + validate
             </button>
+            <button
+                @click="modalLogin.isShow = !modalLogin.isShow"
+                class="btn btn--basic btn--primary"
+                type="button"
+            >
+                Login form
+            </button>
             <BasicModal @modalClose="modalClose('modalSimple')" v-show="modalSimple" title="Title modal">
                 <template v-slot:body>
                     <p>simple modal</p>
@@ -48,6 +55,11 @@
             </BasicModal>
 
             <ModalValidate v-show="modalValidate.isShow" @close="modalClose('modalValidate', 'isShow')"></ModalValidate>
+
+            <FormLogin title="Sign in" v-show="modalLogin.isShow" @close="modalClose('modalLogin', 'isShow')" @openReg="modalRegistration.isShow = true"/>
+
+            <FormRegistration title="Sign up" v-show="modalRegistration.isShow" @close="modalClose('modalRegistration', 'isShow')" @openLogin="modalLogin.isShow = true"/>
+
         </div>
     </div>
 </template>
@@ -56,12 +68,16 @@
 
 import BasicModal from "@/components/UI/BasicModal";
 import ModalValidate from "@/components/ModalValidate";
+import FormLogin from "@/components/FormLogin";
+import FormRegistration from "@/components/FormRegistration";
 
 export default {
     name: 'App',
     components: {
         BasicModal,
-        ModalValidate
+        ModalValidate,
+        FormLogin,
+        FormRegistration
     },
     data() {
         return {
@@ -72,6 +88,12 @@ export default {
                 email: ''
             },
             modalValidate: {
+                isShow: false
+            },
+            modalLogin: {
+                isShow: false
+            },
+            modalRegistration: {
                 isShow: false
             }
         }

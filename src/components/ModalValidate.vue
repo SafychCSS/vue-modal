@@ -1,7 +1,7 @@
 <template>
     <BasicModal title="Modal with form + validate" @modalClose="$emit('close')">
         <div class="form" slot="body">
-            <form @submit.prevent="">
+            <form @submit.prevent="onSubmit">
                 <div
                     class="form__block"
                     :class="{ 'form__block--error': $v.name.$error }"
@@ -67,6 +67,21 @@ export default {
         }
     },
     methods: {
+        onSubmit() {
+            this.$v.$touch();
+            if (!this.$v.$invalid) {
+                const user = {
+                    name: this.name,
+                    email: this.email
+                }
+
+                // Done
+                console.log(user);
+                this.name = this.email = '';
+                this.$v.$reset();
+                this.$emit('close');
+            }
+        }
     }
 }
 </script>
